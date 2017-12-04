@@ -82,9 +82,9 @@ while True:
 
     date_string = now.strftime('%Y-%m-%d %I:%M %p')
     print(f"{date_string},{toll_amount}")
-    # with open("toll_data.csv", 'a') as csv_file:
-    #     writer = csv.writer(csv_file)
-    #     writer.writerow([date_string, toll_amount])
+    with open("toll_data.csv", 'a') as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow([date_string, toll_amount])
 
     # prepare to refresh and try again
 

@@ -9,8 +9,8 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 
 toll_data = {}
-target_num_hours = 8
-target_num_minutes = 59
+target_num_hours = 5
+target_num_minutes = 30
 target_meridiem = 'AM'
 
 # set up selenium
@@ -18,6 +18,9 @@ target_meridiem = 'AM'
 path_to_chromedriver = os.path.dirname(os.path.abspath(__file__)) + "/chromedriver/2.33/linux64/chromedriver"
 os.environ['webdriver.chrome.driver'] = path_to_chromedriver
 chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = "/opt/google/chrome/google-chrome"
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--no-sandbox")
 chrome_options.add_experimental_option('mobileEmulation', {'deviceName': 'Nexus 5'})
 driver = webdriver.Chrome(executable_path=path_to_chromedriver, chrome_options=chrome_options)
 wait = WebDriverWait(driver, 5)
@@ -144,7 +147,7 @@ while should_continue_scraping:
             target_num_minutes = 0
             target_meridiem = 'PM'
 
-            # TODO: temporarily avoid scraping data for PM rush
+            # TODO: temporarily avoid trying to scrape data for PM rush
             should_continue_scraping = False
             continue
         else:

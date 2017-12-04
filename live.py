@@ -16,6 +16,7 @@ previous_meridiem = None
 path_to_chromedriver = os.path.dirname(os.path.abspath(__file__)) + "/chromedriver/2.33/linux64/chromedriver"
 os.environ['webdriver.chrome.driver'] = path_to_chromedriver
 chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = "/opt/google/chrome/google-chrome"
 chrome_options.add_argument("--headless")
 chrome_options.add_experimental_option('mobileEmulation', {'deviceName': 'Nexus 5'})
 driver = webdriver.Chrome(executable_path=path_to_chromedriver, chrome_options=chrome_options)
@@ -80,11 +81,12 @@ while True:
     toll_amount_element = wait.until(expected_conditions.element_to_be_clickable((By.ID, 'spanTollAmt')))
     toll_amount = toll_amount_element.text
 
-    date_string = now.strftime('%Y-%m-%d %I:%M %p')
-    print(f"{date_string},{toll_amount}")
-    with open("toll_data.csv", 'a') as csv_file:
-        writer = csv.writer(csv_file)
-        writer.writerow([date_string, toll_amount])
+    if toll_amount != "No toll for this trip":
+        date_string = now.strftime('%Y-%m-%d %I:%M %p')
+        print(f"{date_string},{toll_amount}")
+        with open("toll_data.csv", 'a') as csv_file:
+            writer = csv.writer(csv_file)
+            writer.writerow([date_string, toll_amount])
 
     # prepare to refresh and try again
 

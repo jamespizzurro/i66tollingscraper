@@ -18,6 +18,7 @@ os.environ['webdriver.chrome.driver'] = path_to_chromedriver
 chrome_options = webdriver.ChromeOptions()
 chrome_options.binary_location = "/opt/google/chrome/google-chrome"
 chrome_options.add_argument("--headless")
+chrome_options.add_argument("--no-sandbox")
 chrome_options.add_experimental_option('mobileEmulation', {'deviceName': 'Nexus 5'})
 driver = webdriver.Chrome(executable_path=path_to_chromedriver, chrome_options=chrome_options)
 wait = WebDriverWait(driver, 5)
